@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+    <title>IT Články CZ</title>
+    <link href="http://www.itclanky.cz/feed.xml" rel="self" />
+    <link href="http://www.itclanky.cz" />
+    <updated>2024-01-26T23:38:46+01:00</updated>
+    <author>
+        <name>Martin Šindler</name>
+    </author>
+    <id>http://www.itclanky.cz</id>
+
+    <entry>
+        <title>Výtejte</title>
+        <author>
+            <name>Martin Šindler</name>
+        </author>
+        <link href="http://www.itclanky.cz/vytejte.html"/>
+        <id>http://www.itclanky.cz/vytejte.html</id>
+
+        <updated>2024-01-26T23:38:46+01:00</updated>
+            <summary>
+                <![CDATA[
+                    Výtejte na mých stránkách! Tento webový portál se bude zabývat IT. Hlavním tématem budou věci týkající se PowerShell, Active Directory a Entra ID (nebo jak se bude tento identity provider jmenovat :). Cílem je spíš vytvářet krátké články, které mohou pomoct zoritentovat se v dané&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <h1>Výtejte na mých stránkách!</h1>
+<p>Tento webový portál se bude zabývat IT. Hlavním tématem budou věci týkající se PowerShell, Active Directory a Entra ID (nebo jak se bude tento identity provider jmenovat :). Cílem je spíš vytvářet krátké články, které mohou pomoct zoritentovat se v dané problematice a budou sloužit i pro mě jakožto poznámky. </p>
+<p> </p>
+            ]]>
+        </content>
+    </entry>
+</feed>
