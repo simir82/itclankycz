@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: http://itclanky.cz/sitemap.xml
