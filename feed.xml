@@ -3,12 +3,56 @@
     <title>IT Články</title>
     <link href="https://itclanky.cz/feed.xml" rel="self" />
     <link href="https://itclanky.cz" />
-    <updated>2024-01-27T21:05:07+01:00</updated>
+    <updated>2024-01-27T21:28:58+01:00</updated>
     <author>
         <name>MS</name>
     </author>
     <id>https://itclanky.cz</id>
 
+    <entry>
+        <title>Pole</title>
+        <author>
+            <name>MS</name>
+        </author>
+        <link href="https://itclanky.cz/create-array.html"/>
+        <id>https://itclanky.cz/create-array.html</id>
+
+        <updated>2024-01-27T21:28:58+01:00</updated>
+            <summary>
+                <![CDATA[
+                    Příklad vytvoření podle, $outputArray je vytovoření instance pole, kde následně vkládáme do tohoto pole objekt $Record, který má nadeklarované 3 proměnne, jako další proměnná attr4 je vkládán až v samotném kódu funkce. Následně se objekt přidává do pole $output array. $OutputArray = @() #/in loop&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>Příklad vytvoření podle, $outputArray je vytovoření instance pole, kde následně vkládáme do tohoto pole objekt $Record, který má nadeklarované 3 proměnne, jako další proměnná attr4 je vkládán až v samotném kódu funkce.  </p>
+<p>Následně se objekt přidává do pole $output array. </p>
+<pre class="language-apacheconf"><code>$OutputArray = @()
+
+#/in loop
+
+$Record = @{
+"attr1" = "Value1"
+"attr2" = "Value2"
+"attr3" = "Value3"
+}
+
+#$Record =@{}
+
+$Record."attr4" = "Value4"
+
+$objrecord = New-Object PSObject -property $Record
+$OutputArray += $objrecord
+
+#/in loop
+
+$OutputArray | out-gridview</code></pre>
+<div class="gallery-wrapper"><div class="gallery"  data-is-empty="false" data-translation="Add images" data-columns="3">
+<figure class="gallery__item"><a href="https://itclanky.cz/media/posts/2/gallery/2024-01-27-21_24_42-Windows-PowerShell-ISE.png" data-size="685x565"><img loading="lazy" src="https://itclanky.cz/media/posts/2/gallery/2024-01-27-21_24_42-Windows-PowerShell-ISE-thumbnail.png" alt="Pole Výsup z ISE" width="685" height="565"></a></figure>
+</div></div>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Výtejte na mých stránkách</title>
         <author>

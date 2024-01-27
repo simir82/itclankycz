@@ -10,6 +10,20 @@
     },
     "items": [
         {
+            "id": "https://itclanky.cz/create-array.html",
+            "url": "https://itclanky.cz/create-array.html",
+            "title": "Pole",
+            "summary": "Příklad vytvoření podle, $outputArray je vytovoření instance pole, kde následně vkládáme do tohoto pole objekt $Record, který má nadeklarované 3 proměnne, jako další proměnná attr4 je vkládán až v samotném kódu funkce. Následně se objekt přidává do pole $output array. $OutputArray = @() #/in loop&hellip;",
+            "content_html": "<p>Příklad vytvoření podle, $outputArray je vytovoření instance pole, kde následně vkládáme do tohoto pole objekt $Record, který má nadeklarované 3 proměnne, jako další proměnná attr4 je vkládán až v samotném kódu funkce.  </p>\n<p>Následně se objekt přidává do pole $output array. </p>\n<pre class=\"language-apacheconf\"><code>$OutputArray = @()\n\n#/in loop\n\n$Record = @{\n\"attr1\" = \"Value1\"\n\"attr2\" = \"Value2\"\n\"attr3\" = \"Value3\"\n}\n\n#$Record =@{}\n\n$Record.\"attr4\" = \"Value4\"\n\n$objrecord = New-Object PSObject -property $Record\n$OutputArray += $objrecord\n\n#/in loop\n\n$OutputArray | out-gridview</code></pre>\n<div class=\"gallery-wrapper\"><div class=\"gallery\"  data-is-empty=\"false\" data-translation=\"Add images\" data-columns=\"3\">\n<figure class=\"gallery__item\"><a href=\"https://itclanky.cz/media/posts/2/gallery/2024-01-27-21_24_42-Windows-PowerShell-ISE.png\" data-size=\"685x565\"><img loading=\"lazy\" src=\"https://itclanky.cz/media/posts/2/gallery/2024-01-27-21_24_42-Windows-PowerShell-ISE-thumbnail.png\" alt=\"Pole Výsup z ISE\" width=\"685\" height=\"565\"></a></figure>\n</div></div>",
+            "author": {
+                "name": "MS"
+            },
+            "tags": [
+            ],
+            "date_published": "2024-01-27T21:17:44+01:00",
+            "date_modified": "2024-01-27T21:28:58+01:00"
+        },
+        {
             "id": "https://itclanky.cz/vytejte-na-mych-strankach.html",
             "url": "https://itclanky.cz/vytejte-na-mych-strankach.html",
             "title": "Výtejte na mých stránkách",
