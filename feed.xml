@@ -3,10 +3,32 @@
     <title>IT Články CZ</title>
     <link href="https://itclanky.cz/feed.xml" rel="self" />
     <link href="https://itclanky.cz" />
-    <updated>1970-01-01T01:00:00+01:00</updated>
+    <updated>2024-01-27T15:35:39+01:00</updated>
     <author>
         <name>MS</name>
     </author>
     <id>https://itclanky.cz</id>
 
+    <entry>
+        <title>Welcome on my pages </title>
+        <author>
+            <name>MS</name>
+        </author>
+        <link href="https://itclanky.cz/welcome-on-my-pages.html"/>
+        <id>https://itclanky.cz/welcome-on-my-pages.html</id>
+
+        <updated>2024-01-27T15:35:39+01:00</updated>
+            <summary>
+                <![CDATA[
+                    This web is derivation of my original web page mynotes.cz where you could find much more things related also to games. Due to some restrictions I lost access to this pages from business neworks (site was described as site with game content) and I lost&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>This web is derivation of my original web page <a href="mynotes.cz">mynotes.cz </a>where you could find much more things related also to games. Due to some restrictions I lost access to this pages from business neworks (site was described as site with game content) and I lost the main purpose of those pages, write notes and use it when are needed. </p>
+<p>From that reason I decided to create new dedicated web pages that will be dedicated just to IT things and not other. Hopefully this will be enough for its primary purpose. Please don´t expect here logs detail articles about IT problematics. Instead i will post here useful things that can IT guy use on it´s daily job. </p>
+<p> </p>
+            ]]>
+        </content>
+    </entry>
 </feed>
