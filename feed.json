@@ -27,15 +27,15 @@
             "id": "https://itclanky.cz/vytejte-na-mych-strankach.html",
             "url": "https://itclanky.cz/vytejte-na-mych-strankach.html",
             "title": "Výtejte na mých stránkách",
-            "summary": "Prní článek vůbec Dourám že tento blog bude čitelný.",
-            "content_html": "\n    <h2 id=\"prni-clanek-vubec\">\n      Prní článek vůbec\n    </h2>\n\n  <p>\n    Dourám že tento blog bude čitelný.\n  </p>",
+            "summary": "Prní článek vůbec Doufám že tento blog bude čitelný. Cílem těchto článku je ukázat jak se některé věci dají dělat a jak některé věci fungují.",
+            "content_html": "\n    <h2 id=\"prni-clanek-vubec\">\n      Prní článek vůbec\n    </h2>\n\n  <p>\n    Doufám že tento blog bude čitelný. Cílem těchto článku je ukázat jak se některé věci dají dělat a jak některé věci fungují.\n  </p>",
             "author": {
                 "name": "MS"
             },
             "tags": [
             ],
             "date_published": "2024-01-27T21:01:37+01:00",
-            "date_modified": "2024-01-27T21:05:07+01:00"
+            "date_modified": "2024-01-27T21:32:58+01:00"
         }
     ]
 }

@@ -3,7 +3,7 @@
     <title>IT Články</title>
     <link href="https://itclanky.cz/feed.xml" rel="self" />
     <link href="https://itclanky.cz" />
-    <updated>2024-01-27T21:28:58+01:00</updated>
+    <updated>2024-01-27T21:32:58+01:00</updated>
     <author>
         <name>MS</name>
     </author>
@@ -61,10 +61,10 @@ $OutputArray | out-gridview</code></pre>
         <link href="https://itclanky.cz/vytejte-na-mych-strankach.html"/>
         <id>https://itclanky.cz/vytejte-na-mych-strankach.html</id>
 
-        <updated>2024-01-27T21:05:07+01:00</updated>
+        <updated>2024-01-27T21:32:58+01:00</updated>
             <summary>
                 <![CDATA[
-                    Prní článek vůbec Dourám že tento blog bude čitelný.
+                    Prní článek vůbec Doufám že tento blog bude čitelný. Cílem těchto článku je ukázat jak se některé věci dají dělat a jak některé věci fungují.
                 ]]>
             </summary>
         <content type="html">
@@ -75,7 +75,7 @@ $OutputArray | out-gridview</code></pre>
     </h2>
 
   <p>
-    Dourám že tento blog bude čitelný.
+    Doufám že tento blog bude čitelný. Cílem těchto článku je ukázat jak se některé věci dají dělat a jak některé věci fungují.
   </p>
             ]]>
         </content>
