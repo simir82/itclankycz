@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+    <title>IT Články</title>
+    <link href="https://itclanky.cz/feed.xml" rel="self" />
+    <link href="https://itclanky.cz" />
+    <updated>2024-01-27T21:05:07+01:00</updated>
+    <author>
+        <name>MS</name>
+    </author>
+    <id>https://itclanky.cz</id>
+
+    <entry>
+        <title>Výtejte na mých stránkách</title>
+        <author>
+            <name>MS</name>
+        </author>
+        <link href="https://itclanky.cz/vytejte-na-mych-strankach.html"/>
+        <id>https://itclanky.cz/vytejte-na-mych-strankach.html</id>
+
+        <updated>2024-01-27T21:05:07+01:00</updated>
+            <summary>
+                <![CDATA[
+                    Prní článek vůbec Dourám že tento blog bude čitelný.
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                
+    <h2 id="prni-clanek-vubec">
+      Prní článek vůbec
+    </h2>
+
+  <p>
+    Dourám že tento blog bude čitelný.
+  </p>
+            ]]>
+        </content>
+    </entry>
+</feed>
