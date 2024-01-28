@@ -3,12 +3,66 @@
     <title>IT Články</title>
     <link href="https://itclanky.cz/feed.xml" rel="self" />
     <link href="https://itclanky.cz" />
-    <updated>2024-01-28T09:03:35+01:00</updated>
+    <updated>2024-01-28T21:57:56+01:00</updated>
     <author>
         <name>MS</name>
     </author>
     <id>https://itclanky.cz</id>
 
+    <entry>
+        <title>Přístup na Entra ID pomocí Service Principal</title>
+        <author>
+            <name>MS</name>
+        </author>
+        <link href="https://itclanky.cz/pristup-na-entra-id-pomoci-service-principal.html"/>
+        <id>https://itclanky.cz/pristup-na-entra-id-pomoci-service-principal.html</id>
+            <category term="poweshell"/>
+
+        <updated>2024-01-28T21:57:56+01:00</updated>
+            <summary>
+                <![CDATA[
+                    Jeden z hlavních důvodů, proč to řešit je pravděpodoně to, že Global Admins / Privilegované Role mají většinou přístup podmíněný zadáním MFA a to blokuje použití těchto účtů pro automatizace (což je dobře). Než začneme rozebírat tuto prolematiku, tak musím zmínit, že nejsem původním autorem&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>Jeden z hlavních důvodů, proč to řešit je pravděpodoně to, že Global Admins / Privilegované Role mají většinou přístup podmíněný zadáním MFA a to blokuje použití těchto účtů pro automatizace (což je dobře). Než začneme rozebírat tuto prolematiku, tak musím zmínit, že nejsem původním autorem tohoto članku a pouze jsem ho z větší části převzal od někoho jiného. Je důležité uvědomit si jako roli hrají certifikáty při ověřování. Pokud použijeme pro ověření Service Principal certifikát, tak ztráta kontroly nad soukromým klíčem vede ke ztrátě kontroly nad Identity Principal..</p>
+<p>Než budeme pokračovat, raději si spusťte PowerShell ISE v elevovaném režimu, protože některé operacu budou elevaci přímo vyžadovat a mohlo by dojít k situaci, že nebudete moct dál pokračovat v postupu.</p>
+<p>Budete muset iniciovat připojení k Entra ID což budepotřebovat PowerShell modul AzureAD nebo AzureADPreview. Ať už použijete jakýkoliv z těchto modulů , použijte tyto příkazy:</p>
+<pre class="language-apacheconf"><code>import-module azuread 
+# or import-module azureadpreview
+connect-azuread -tenantID IDoftenant</code></pre>
+<p>Následně nadefinujte $pwd proměnnou, která bude obsahovat heslo k pfx souboru.</p>
+<pre class="language-apacheconf"><code>$pwd = "plaintext password"</code></pre>
+<p>Vytvořte složku, kde bude pfx soubor dočasně uložen, v tomto příkladu jsem použil cestu C:\temp. Dále nedefinujte -DNSName hodnotou, která reprezentuje jméno tenantu. </p>
+<pre class="language-apacheconf"><code>$notAfter = (Get-Date).AddMonths(6) # Valid for 6 months
+$thumb = (New-SelfSignedCertificate -DnsName "mytestdomain.onmicrosoft.com" -CertStoreLocation "cert:\LocalMachine\My" -KeyExportPolicy Exportable -Provider "Microsoft Enhanced RSA and AES Cryptographic Provider" -NotAfter $notAfter).Thumbprint
+$pwd = ConvertTo-SecureString -String $pwd -Force -AsPlainText
+Export-PfxCertificate -cert "cert:\localmachine\my\$thumb" -FilePath c:\temp\examplecert.pfx -Password $pwd</code></pre>
+<p>Načtěte certifikát, aby mohl být použitý v Entra ID</p>
+<pre class="language-apacheconf"><code>$cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate("C:\temp\examplecert.pfx", $pwd)
+$keyValue = [System.Convert]::ToBase64String($cert.GetRawCertData())</code></pre>
+<p>Prosím upravte hodnotu  IdentifierUris tak, aby to odpovídal jménu tenantu. Upravte  DisplayName and CuctomeKeyIdentifier podle potřeby. </p>
+<pre class="language-apacheconf"><code>$application = New-AzureADApplication -DisplayName "test123" -IdentifierUris "https://mytestdomain.onmicrosoft.com"
+New-AzureADApplicationKeyCredential -ObjectId $application.ObjectId -CustomKeyIdentifier "Test123" -Type AsymmetricX509Cert -Usage Verify -Value $keyValue -EndDate $notAfter</code></pre>
+<p>Připravte Service Principle pro novou aplikaci</p>
+<pre class="language-apacheconf"><code>$sp=New-AzureADServicePrincipal -AppId $application.AppId</code></pre>
+<p>Teď nastavíme roli pro naši novou aplikaci. Můžete zvolit jakoukoliv roli, role lze vylistovat i pomocí následujicího commandletu. V mém případě budu potřebovat roli Global Administrator, proto vyberu roli "Global Admins" .</p>
+<pre class="language-apacheconf"><code>Get-AzureADDirectoryRole</code></pre>
+<p>Zde je už příkaz na přidání role.</p>
+<pre class="language-apacheconf"><code>Add-AzureADDirectoryRoleMember -ObjectId (Get-AzureADDirectoryRole | where-object {$_.DisplayName -eq "Global Administrator"}).Objectid -RefObjectId $sp.ObjectId</code></pre>
+<p>Pro přidáni do tentantu můžete použít násedujicí kód, prosim upravte:</p>
+<ul>
+<li>YourTenantID (Tenant ID Vašeho tenantu)</li>
+<li>YourApplicationID (v mém případě bych získal toto ID pomocí příkazu Get-AzureADApplication -SearchString „test123“)</li>
+<li>YourCertThumbprint (ten získáte tak že otevřete certifikáty počítače, následně poklepáte na certifikát, který jsme dříve vytvořili, kliknete na Details a thumbprint naleznete v poli Thumbprint)</li>
+</ul>
+<pre class="language-apacheconf"><code>Connect-AzureAD -TenantId YourTenantID -ApplicationId YourApplicationID -CertificateThumbprint YourCertThumbprint</code></pre>
+<p>Původní zdroj: <a href="https://learn.microsoft.com/en-us/powershell/azure/active-directory/signing-in-service-principal?view=azureadps-2.0">https://learn.microsoft.com/en-us/powershell/azure/active-directory/signing-in-service-principal?view=azureadps-2.0</a></p>
+<p> </p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Full text search v PowerShellu</title>
         <author>
@@ -103,10 +157,10 @@ $OutputArray | out-gridview</code></pre>
         <id>https://itclanky.cz/vytejte-na-mych-strankach.html</id>
             <category term="general"/>
 
-        <updated>2024-01-28T09:03:35+01:00</updated>
+        <updated>2024-01-28T21:30:00+01:00</updated>
             <summary>
                 <![CDATA[
-                    Prní článek vůbec Doufám že tento blog bude čitelný. Cílem těchto článku je ukázat jak se některé věci dají dělat a jak některé věci fungují.
+                    Prní článek vůbec Cílem tohoto blogu je sepisovat články týkající se IT věcí, konrétněji se budu zaměřovat na problematiku Identity managementu na Microsoft technologiích. Dále pak velkou část budou trořit tipy a triky v PowerShellu. Snad se Vám tyto stránky hodí a možná zde najdete&hellip;
                 ]]>
             </summary>
         <content type="html">
@@ -117,7 +171,11 @@ $OutputArray | out-gridview</code></pre>
     </h2>
 
   <p>
-    Doufám že tento blog bude čitelný. Cílem těchto článku je ukázat jak se některé věci dají dělat a jak některé věci fungují.
+    Cílem tohoto blogu je sepisovat články týkající se IT věcí, konrétněji se budu zaměřovat na problematiku Identity managementu na Microsoft technologiích. Dále pak velkou část budou trořit tipy a triky v PowerShellu.
+  </p>
+
+  <p>
+    Snad se Vám tyto stránky hodí a možná zde najdete i něco, co jste doposud nevěděli.&nbsp;
   </p>
             ]]>
         </content>
