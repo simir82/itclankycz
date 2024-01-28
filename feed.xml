@@ -3,12 +3,52 @@
     <title>IT Články</title>
     <link href="https://itclanky.cz/feed.xml" rel="self" />
     <link href="https://itclanky.cz" />
-    <updated>2024-01-27T21:32:58+01:00</updated>
+    <updated>2024-01-28T09:03:35+01:00</updated>
     <author>
         <name>MS</name>
     </author>
     <id>https://itclanky.cz</id>
 
+    <entry>
+        <title>Full text search v PowerShellu</title>
+        <author>
+            <name>MS</name>
+        </author>
+        <link href="https://itclanky.cz/full-text-search-v-powershellu.html"/>
+        <id>https://itclanky.cz/full-text-search-v-powershellu.html</id>
+            <category term="poweshell"/>
+
+        <updated>2024-01-28T09:03:17+01:00</updated>
+            <summary>
+                <![CDATA[
+                    Problém hledání textu Někdy je nutné najít na systému stringový řetězec a na systému není žádný tool typu Total Commander. Navíc pokud jde o hledání v příkazové řádce, moc nám toho nezbývá. Zde se PowerShell víc než hodí. V tomto příkladu budeme hledat extový řetězec&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <div class="post__toc">
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#mcetoc_1hl7hcfhi20">Problém hledání textu</a></li>
+<li><a href="#mcetoc_1hl7hcfhi21">Hledání textového řetězce v určitém adresáři.</a></li>
+</ul>
+</div>
+<h1 id="mcetoc_1hl7hcfhi20">Problém hledání textu</h1>
+<p>Někdy je nutné najít na systému stringový řetězec a na systému není žádný tool typu Total Commander. Navíc pokud jde o hledání v příkazové řádce, moc nám toho nezbývá. Zde se PowerShell víc než hodí. </p>
+<h1 id="mcetoc_1hl7hcfhi21">Hledání textového řetězce v určitém adresáři.</h1>
+<p>V tomto příkladu budeme hledat extový řetězec "JoeDoe" v adresáři "C:\test". </p>
+<pre class="language-apacheconf"><code>get-childitem -Path "C:\Test" | Select-String "JoeDoe"</code></pre>
+<p>Vysledek je následující, jak je patrné, nejen že výstup vrátí výskyt v určitém souboru, ale také na jakém řádku se řetězec vyskytoval. </p>
+<p> </p>
+<pre class="language-apacheconf"><code>get-childitem -Path "C:\Test" | Select-String "JoeDoe"
+
+C:\Test\file1.txt:2:JoeDoe
+C:\Test\file2.txt:6:JoeDoe</code></pre>
+<p>Select-String umožňuje spoustu variací a výstup může být víc než užitečný. Doporučuji prosudovat dokumentaci commandletu:</p>
+<p><a href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-string?view=powershell-7.4">Select-String (Microsoft.PowerShell.Utility) - PowerShell | Microsoft Learn</a></p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Pole</title>
         <author>
@@ -16,8 +56,9 @@
         </author>
         <link href="https://itclanky.cz/create-array.html"/>
         <id>https://itclanky.cz/create-array.html</id>
+            <category term="poweshell"/>
 
-        <updated>2024-01-27T21:28:58+01:00</updated>
+        <updated>2024-01-28T09:03:26+01:00</updated>
             <summary>
                 <![CDATA[
                     Příklad vytvoření podle, $outputArray je vytovoření instance pole, kde následně vkládáme do tohoto pole objekt $Record, který má nadeklarované 3 proměnne, jako další proměnná attr4 je vkládán až v samotném kódu funkce. Následně se objekt přidává do pole $output array. $OutputArray = @() #/in loop&hellip;
@@ -60,8 +101,9 @@ $OutputArray | out-gridview</code></pre>
         </author>
         <link href="https://itclanky.cz/vytejte-na-mych-strankach.html"/>
         <id>https://itclanky.cz/vytejte-na-mych-strankach.html</id>
+            <category term="general"/>
 
-        <updated>2024-01-27T21:32:58+01:00</updated>
+        <updated>2024-01-28T09:03:35+01:00</updated>
             <summary>
                 <![CDATA[
                     Prní článek vůbec Doufám že tento blog bude čitelný. Cílem těchto článku je ukázat jak se některé věci dají dělat a jak některé věci fungují.

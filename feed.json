@@ -10,6 +10,21 @@
     },
     "items": [
         {
+            "id": "https://itclanky.cz/full-text-search-v-powershellu.html",
+            "url": "https://itclanky.cz/full-text-search-v-powershellu.html",
+            "title": "Full text search v PowerShellu",
+            "summary": "Problém hledání textu Někdy je nutné najít na systému stringový řetězec a na systému není žádný tool typu Total Commander. Navíc pokud jde o hledání v příkazové řádce, moc nám toho nezbývá. Zde se PowerShell víc než hodí. V tomto příkladu budeme hledat extový řetězec&hellip;",
+            "content_html": "<div class=\"post__toc\">\n<h3>Table of Contents</h3>\n<ul>\n<li><a href=\"#mcetoc_1hl7hcfhi20\">Problém hledání textu</a></li>\n<li><a href=\"#mcetoc_1hl7hcfhi21\">Hledání textového řetězce v určitém adresáři.</a></li>\n</ul>\n</div>\n<h1 id=\"mcetoc_1hl7hcfhi20\">Problém hledání textu</h1>\n<p>Někdy je nutné najít na systému stringový řetězec a na systému není žádný tool typu Total Commander. Navíc pokud jde o hledání v příkazové řádce, moc nám toho nezbývá. Zde se PowerShell víc než hodí. </p>\n<h1 id=\"mcetoc_1hl7hcfhi21\">Hledání textového řetězce v určitém adresáři.</h1>\n<p>V tomto příkladu budeme hledat extový řetězec \"JoeDoe\" v adresáři \"C:\\test\". </p>\n<pre class=\"language-apacheconf\"><code>get-childitem -Path \"C:\\Test\" | Select-String \"JoeDoe\"</code></pre>\n<p>Vysledek je následující, jak je patrné, nejen že výstup vrátí výskyt v určitém souboru, ale také na jakém řádku se řetězec vyskytoval. </p>\n<p> </p>\n<pre class=\"language-apacheconf\"><code>get-childitem -Path \"C:\\Test\" | Select-String \"JoeDoe\"\n\nC:\\Test\\file1.txt:2:JoeDoe\nC:\\Test\\file2.txt:6:JoeDoe</code></pre>\n<p>Select-String umožňuje spoustu variací a výstup může být víc než užitečný. Doporučuji prosudovat dokumentaci commandletu:</p>\n<p><a href=\"https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-string?view=powershell-7.4\">Select-String (Microsoft.PowerShell.Utility) - PowerShell | Microsoft Learn</a></p>",
+            "author": {
+                "name": "MS"
+            },
+            "tags": [
+                   "poweshell"
+            ],
+            "date_published": "2024-01-28T09:00:02+01:00",
+            "date_modified": "2024-01-28T09:03:17+01:00"
+        },
+        {
             "id": "https://itclanky.cz/create-array.html",
             "url": "https://itclanky.cz/create-array.html",
             "title": "Pole",
@@ -19,9 +34,10 @@
                 "name": "MS"
             },
             "tags": [
+                   "poweshell"
             ],
             "date_published": "2024-01-27T21:17:44+01:00",
-            "date_modified": "2024-01-27T21:28:58+01:00"
+            "date_modified": "2024-01-28T09:03:26+01:00"
         },
         {
             "id": "https://itclanky.cz/vytejte-na-mych-strankach.html",
@@ -33,9 +49,10 @@
                 "name": "MS"
             },
             "tags": [
+                   "general"
             ],
             "date_published": "2024-01-27T21:01:37+01:00",
-            "date_modified": "2024-01-27T21:32:58+01:00"
+            "date_modified": "2024-01-28T09:03:35+01:00"
         }
     ]
 }
