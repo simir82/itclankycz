@@ -3,12 +3,89 @@
     <title>IT Články</title>
     <link href="https://itclanky.cz/feed.xml" rel="self" />
     <link href="https://itclanky.cz" />
-    <updated>2024-01-28T21:57:56+01:00</updated>
+    <updated>2024-01-29T19:32:37+01:00</updated>
     <author>
         <name>MS</name>
     </author>
     <id>https://itclanky.cz</id>
 
+    <entry>
+        <title>Graph API a práce s @odata.nextLink</title>
+        <author>
+            <name>MS</name>
+        </author>
+        <link href="https://itclanky.cz/graph-api-a-prace-s-odatanextlink.html"/>
+        <id>https://itclanky.cz/graph-api-a-prace-s-odatanextlink.html</id>
+            <category term="poweshell"/>
+
+        <updated>2024-01-29T19:32:37+01:00</updated>
+            <summary>
+                <![CDATA[
+                    Zde je příklad, kdy Graph API vrátí nadlimitní množství odpovědí (přesáhl jsem limit 100 objektů v odpovědi). Následující kód bude zpracovávat každou odpověď a ověřovat, zda návratová data obsahují @odata.nextLink, což poukazuje na to, že návratová data opět přesáhly limit. Takto skript postupně vytahuje dávky&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>Zde je příklad, kdy Graph API vrátí nadlimitní množství odpovědí (přesáhl jsem limit 100 objektů v odpovědi). Následující kód bude zpracovávat každou odpověď a ověřovat, zda návratová data obsahují @odata.nextLink, což poukazuje na to, že návratová data opět přesáhly limit. Takto skript postupně vytahuje dávky dat dokud návratová data obsahuji @odata.nextLink. Co teprve, když začně MS Graph API s throttlingem, to už je pak horší :). Pro základní "domácí žvýkání" to ale bude stačit.</p>
+<p> </p>
+<pre class="language-apacheconf"><code>$allusers=@()
+
+
+$users = Invoke-RestMethod -Headers @{Authorization = "Bearer $($token.AccessToken)" } -Uri 'https://graph.microsoft.com/v1.0/users' -Method Get
+
+$allusers = $allusers + $users.value
+
+while($users.'@odata.nextLink' -ne $null)
+{
+$users = Invoke-RestMethod -Headers @{Authorization = "Bearer $($token.AccessToken)" } -Uri $users.'@odata.nextLink' -Method Get
+$allusers = $allusers + $users.value 
+}
+
+#Returns users from aggregated varriable 
+
+$allusers</code></pre>
+<p> </p>
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>Připojení k Entra ID přes MS Graph</title>
+        <author>
+            <name>MS</name>
+        </author>
+        <link href="https://itclanky.cz/pripojeni-k-entra-id-pres-ms-graph.html"/>
+        <id>https://itclanky.cz/pripojeni-k-entra-id-pres-ms-graph.html</id>
+            <category term="poweshell"/>
+
+        <updated>2024-01-29T19:25:28+01:00</updated>
+            <summary>
+                <![CDATA[
+                    Tento článek navazuje na předchozí článek týkající se konfigurace Service Principal pro připojení k Entra ID. K tomu abychom mohli iniciovat připojení k MS Graph použiji v tomto postupu klihovnu msal.ps , kterou musíme nainstalovat. Pokud jste postupovali podle předchozího návodu, tak by tento postup&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>Tento článek navazuje na předchozí <a href="https://itclanky.cz/pristup-na-entra-id-pomoci-service-principal.html">článek</a> týkající se konfigurace Service Principal pro připojení k Entra ID.</p>
+<p>K tomu abychom mohli iniciovat připojení k MS Graph použiji v tomto postupu klihovnu  <a href="https://github.com/AzureAD/MSAL.PS">msal.ps</a> , kterou musíme nainstalovat. Pokud jste postupovali podle předchozího návodu, tak by tento postup měl fungovat "out of box". Pokud má Váš Service Principal nižší práva, pak budete muset přidat práva registrované aplikace v nastavní <a href="https://stackoverflow.com/questions/61457429/how-to-add-api-permissions-to-an-azure-app-registration-using-powershell">API práv</a>.</p>
+<p>This article continues based on <a href="https://mynotes.cz/?p=708">prevous article</a> where application principle was used for authentication to AzureAD over powershell module AzureAD.</p>
+<p>V následující kódu upravte:</p>
+<ul>
+<li>nahraďte řetězec YourCertThumprint thumbprintem vašeho certifikátu</li>
+<li>nahraďte řetězed YourApplicationID svým ID (postup jak ID zjistit je zmíněn ve <a href="https://itclanky.cz/pristup-na-entra-id-pomoci-service-principal.html">zmíněném článku</a>)</li>
+<li>nahraďte řetězec YourTenantID s ID vašeho tenantu</li>
+</ul>
+<pre class="language-apacheconf"><code>import-module msal.ps
+$cert = Get-ChildItem -Path Cert:LocalMachine\MY | ?{$_.Thumbprint -eq „YourCertThumbprint“ }
+
+$token = Get-MsalToken -ClientId YourApplicationID -ClientCertificate $cert -TenantId YourTenantID
+
+Invoke-RestMethod -Headers @{Authorization = „Bearer $($token.AccessToken)“ } `
+-Uri ‚https://graph.microsoft.com/v1.0/users‘ `
+-Method Get</code></pre>
+<p>Tento článek je spíše poznámka, ale mohl by být užitečný někomu, který bojuje s prvnotním rozčarováním Grap API. </p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Přístup na Entra ID pomocí Service Principal</title>
         <author>

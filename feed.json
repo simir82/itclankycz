@@ -10,6 +10,36 @@
     },
     "items": [
         {
+            "id": "https://itclanky.cz/graph-api-a-prace-s-odatanextlink.html",
+            "url": "https://itclanky.cz/graph-api-a-prace-s-odatanextlink.html",
+            "title": "Graph API a práce s @odata.nextLink",
+            "summary": "Zde je příklad, kdy Graph API vrátí nadlimitní množství odpovědí (přesáhl jsem limit 100 objektů v odpovědi). Následující kód bude zpracovávat každou odpověď a ověřovat, zda návratová data obsahují @odata.nextLink, což poukazuje na to, že návratová data opět přesáhly limit. Takto skript postupně vytahuje dávky&hellip;",
+            "content_html": "<p>Zde je příklad, kdy Graph API vrátí nadlimitní množství odpovědí (přesáhl jsem limit 100 objektů v odpovědi). Následující kód bude zpracovávat každou odpověď a ověřovat, zda návratová data obsahují @odata.nextLink, což poukazuje na to, že návratová data opět přesáhly limit. Takto skript postupně vytahuje dávky dat dokud návratová data obsahuji @odata.nextLink. Co teprve, když začně MS Graph API s throttlingem, to už je pak horší :). Pro základní \"domácí žvýkání\" to ale bude stačit.</p>\n<p> </p>\n<pre class=\"language-apacheconf\"><code>$allusers=@()\n\n\n$users = Invoke-RestMethod -Headers @{Authorization = \"Bearer $($token.AccessToken)\" } -Uri 'https://graph.microsoft.com/v1.0/users' -Method Get\n\n$allusers = $allusers + $users.value\n\nwhile($users.'@odata.nextLink' -ne $null)\n{\n$users = Invoke-RestMethod -Headers @{Authorization = \"Bearer $($token.AccessToken)\" } -Uri $users.'@odata.nextLink' -Method Get\n$allusers = $allusers + $users.value \n}\n\n#Returns users from aggregated varriable \n\n$allusers</code></pre>\n<p> </p>",
+            "author": {
+                "name": "MS"
+            },
+            "tags": [
+                   "poweshell"
+            ],
+            "date_published": "2024-01-29T19:32:37+01:00",
+            "date_modified": "2024-01-29T19:32:37+01:00"
+        },
+        {
+            "id": "https://itclanky.cz/pripojeni-k-entra-id-pres-ms-graph.html",
+            "url": "https://itclanky.cz/pripojeni-k-entra-id-pres-ms-graph.html",
+            "title": "Připojení k Entra ID přes MS Graph",
+            "summary": "Tento článek navazuje na předchozí článek týkající se konfigurace Service Principal pro připojení k Entra ID. K tomu abychom mohli iniciovat připojení k MS Graph použiji v tomto postupu klihovnu msal.ps , kterou musíme nainstalovat. Pokud jste postupovali podle předchozího návodu, tak by tento postup&hellip;",
+            "content_html": "<p>Tento článek navazuje na předchozí <a href=\"https://itclanky.cz/pristup-na-entra-id-pomoci-service-principal.html\">článek</a> týkající se konfigurace Service Principal pro připojení k Entra ID.</p>\n<p>K tomu abychom mohli iniciovat připojení k MS Graph použiji v tomto postupu klihovnu  <a href=\"https://github.com/AzureAD/MSAL.PS\">msal.ps</a> , kterou musíme nainstalovat. Pokud jste postupovali podle předchozího návodu, tak by tento postup měl fungovat \"out of box\". Pokud má Váš Service Principal nižší práva, pak budete muset přidat práva registrované aplikace v nastavní <a href=\"https://stackoverflow.com/questions/61457429/how-to-add-api-permissions-to-an-azure-app-registration-using-powershell\">API práv</a>.</p>\n<p>This article continues based on <a href=\"https://mynotes.cz/?p=708\">prevous article</a> where application principle was used for authentication to AzureAD over powershell module AzureAD.</p>\n<p>V následující kódu upravte:</p>\n<ul>\n<li>nahraďte řetězec YourCertThumprint thumbprintem vašeho certifikátu</li>\n<li>nahraďte řetězed YourApplicationID svým ID (postup jak ID zjistit je zmíněn ve <a href=\"https://itclanky.cz/pristup-na-entra-id-pomoci-service-principal.html\">zmíněném článku</a>)</li>\n<li>nahraďte řetězec YourTenantID s ID vašeho tenantu</li>\n</ul>\n<pre class=\"language-apacheconf\"><code>import-module msal.ps\n$cert = Get-ChildItem -Path Cert:LocalMachine\\MY | ?{$_.Thumbprint -eq „YourCertThumbprint“ }\n\n$token = Get-MsalToken -ClientId YourApplicationID -ClientCertificate $cert -TenantId YourTenantID\n\nInvoke-RestMethod -Headers @{Authorization = „Bearer $($token.AccessToken)“ } `\n-Uri ‚https://graph.microsoft.com/v1.0/users‘ `\n-Method Get</code></pre>\n<p>Tento článek je spíše poznámka, ale mohl by být užitečný někomu, který bojuje s prvnotním rozčarováním Grap API. </p>",
+            "author": {
+                "name": "MS"
+            },
+            "tags": [
+                   "poweshell"
+            ],
+            "date_published": "2024-01-29T19:25:28+01:00",
+            "date_modified": "2024-01-29T19:25:28+01:00"
+        },
+        {
             "id": "https://itclanky.cz/pristup-na-entra-id-pomoci-service-principal.html",
             "url": "https://itclanky.cz/pristup-na-entra-id-pomoci-service-principal.html",
             "title": "Přístup na Entra ID pomocí Service Principal",
