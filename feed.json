@@ -10,6 +10,22 @@
     },
     "items": [
         {
+            "id": "https://itclanky.cz/reseni-problemu-s-dfsr.html",
+            "url": "https://itclanky.cz/reseni-problemu-s-dfsr.html",
+            "title": "Řešení problému s DFSR",
+            "summary": "Pokud pracujete z Active Directory delší dobu, jste obeznámení s tím, jak fungoval troubleshooting FRS (File-system Replications Service). Je to velmi podobný způsob opravy, kdy se jedna replikace nominuje jako autoritativní a následně se musí přemluvit ostatní DCs k replikaci z tohoto DC. U FSR&hellip;",
+            "content_html": "<p>Pokud pracujete z Active Directory delší dobu, jste obeznámení s tím, jak fungoval troubleshooting FRS (File-system Replications Service). Je to velmi podobný způsob opravy, kdy se jedna replikace nominuje jako autoritativní a následně se musí přemluvit ostatní DCs k replikaci z tohoto DC. </p>\n<p>U FSR to bylo řešeno prostřednictvím úplravy registrů. U DFSR je celá služba založena na replikaci pomocí DFS-R technologie a ta je přímo závislá na konfiguraci AD a tak lze bude hrát velkou roli ADSIEdit. </p>\n<p>Pro otestování stavu replikace lze posloužit tento PowerShell skript:</p>\n<p> </p>\n<pre class=\"language-apacheconf\"><code>$output = [string] (cmd.exe /c \"For /f %r IN ('dsquery server -o rdn') do @echo %i `&amp;`&amp; @wmic /node:`\"%r`\" /namespace:\\\\root\\microsoftdfs path dfsrreplicatedfolderinfo WHERE replicatedfoldername='SYSVOL share' get replicatedfoldername,state \" )\n$processing = $output. replace(\" \",\" \").Replace(\" \",\" \").replace(\" \",\" \").Replace(\" \",\" \").split(\" \")\n$result = ($processing | ?{$_ -match '^[0-9]+$' } | ?{$_ -ne \"4\"}).count\n$success = ($processing | ?{$_ -match '^[0-9]+$' } | ?{$_ -eq \"4\"}).count\n\n\n\n\nif (($success -gt 0 ) -and ($result -ne 0))\n{$returnvalue = 0}\nelse\n{$returnvalue = 1}</code></pre>\n<p>Pro vyřešení problému pak lze použít tyto odkazy:</p>\n<p><a>https://learn.microsoft.com/en-us/troubleshoot/windows-server/group-policy/force-authoritative-non-authoritative-synchronization</a></p>\n<p><a>https://saubhik.wordpress.com/2020/07/11/dfsr-restore-non-authoritative-d2-authoritative-d4/</a></p>\n<p> </p>",
+            "author": {
+                "name": "MS"
+            },
+            "tags": [
+                   "poweshell",
+                   "AD"
+            ],
+            "date_published": "2024-02-12T19:46:10+01:00",
+            "date_modified": "2024-02-12T19:46:10+01:00"
+        },
+        {
             "id": "https://itclanky.cz/graph-api-a-prace-s-odatanextlink.html",
             "url": "https://itclanky.cz/graph-api-a-prace-s-odatanextlink.html",
             "title": "Graph API a práce s @odata.nextLink",

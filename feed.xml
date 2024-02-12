@@ -3,12 +3,53 @@
     <title>IT Články</title>
     <link href="https://itclanky.cz/feed.xml" rel="self" />
     <link href="https://itclanky.cz" />
-    <updated>2024-01-29T19:32:37+01:00</updated>
+    <updated>2024-02-12T19:46:10+01:00</updated>
     <author>
         <name>MS</name>
     </author>
     <id>https://itclanky.cz</id>
 
+    <entry>
+        <title>Řešení problému s DFSR</title>
+        <author>
+            <name>MS</name>
+        </author>
+        <link href="https://itclanky.cz/reseni-problemu-s-dfsr.html"/>
+        <id>https://itclanky.cz/reseni-problemu-s-dfsr.html</id>
+            <category term="poweshell"/>
+            <category term="AD"/>
+
+        <updated>2024-02-12T19:46:10+01:00</updated>
+            <summary>
+                <![CDATA[
+                    Pokud pracujete z Active Directory delší dobu, jste obeznámení s tím, jak fungoval troubleshooting FRS (File-system Replications Service). Je to velmi podobný způsob opravy, kdy se jedna replikace nominuje jako autoritativní a následně se musí přemluvit ostatní DCs k replikaci z tohoto DC. U FSR&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>Pokud pracujete z Active Directory delší dobu, jste obeznámení s tím, jak fungoval troubleshooting FRS (File-system Replications Service). Je to velmi podobný způsob opravy, kdy se jedna replikace nominuje jako autoritativní a následně se musí přemluvit ostatní DCs k replikaci z tohoto DC. </p>
+<p>U FSR to bylo řešeno prostřednictvím úplravy registrů. U DFSR je celá služba založena na replikaci pomocí DFS-R technologie a ta je přímo závislá na konfiguraci AD a tak lze bude hrát velkou roli ADSIEdit. </p>
+<p>Pro otestování stavu replikace lze posloužit tento PowerShell skript:</p>
+<p> </p>
+<pre class="language-apacheconf"><code>$output = [string] (cmd.exe /c "For /f %r IN ('dsquery server -o rdn') do @echo %i `&amp;`&amp; @wmic /node:`"%r`" /namespace:\\root\microsoftdfs path dfsrreplicatedfolderinfo WHERE replicatedfoldername='SYSVOL share' get replicatedfoldername,state " )
+$processing = $output. replace(" "," ").Replace(" "," ").replace(" "," ").Replace(" "," ").split(" ")
+$result = ($processing | ?{$_ -match '^[0-9]+$' } | ?{$_ -ne "4"}).count
+$success = ($processing | ?{$_ -match '^[0-9]+$' } | ?{$_ -eq "4"}).count
+
+
+
+
+if (($success -gt 0 ) -and ($result -ne 0))
+{$returnvalue = 0}
+else
+{$returnvalue = 1}</code></pre>
+<p>Pro vyřešení problému pak lze použít tyto odkazy:</p>
+<p><a>https://learn.microsoft.com/en-us/troubleshoot/windows-server/group-policy/force-authoritative-non-authoritative-synchronization</a></p>
+<p><a>https://saubhik.wordpress.com/2020/07/11/dfsr-restore-non-authoritative-d2-authoritative-d4/</a></p>
+<p> </p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Graph API a práce s @odata.nextLink</title>
         <author>
